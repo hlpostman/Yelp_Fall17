@@ -18,9 +18,28 @@ class BusinessCell: UITableViewCell {
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var categoriesLabel: UILabel!
     
+    var business: Business! {
+        didSet {
+            thumbImageView.setImageWith(business.imageURL!)
+            nameLabel.text = business.name!
+            distanceLabel.text = business.distance!
+            ratingImageView.setImageWith(business.ratingImageURL!)
+            reviewsCountLabel.text = "\(business.reviewCount!) Reviews"
+            addressLabel.text = business.address!
+            categoriesLabel.text = business.categories!
+            
+            
+            
+            
+        }
+        
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        thumbImageView.layer.cornerRadius = 5
+        thumbImageView.clipsToBounds = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
