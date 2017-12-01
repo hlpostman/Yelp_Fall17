@@ -8,15 +8,17 @@
 
 import UIKit
 
-class BusinessesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class BusinessesViewController: UIViewController, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
     var businesses: [Business]!
+    var searchedBusinesses: [Business]?
+    let searchBar = UISearchBar()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Yelp"
+//        self.title = "Yelp"
         
         // Tableview
         tableView.delegate = self
@@ -24,10 +26,22 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 120
         
+        // Search bar
+        searchBar.delegate = self
+        searchBar.sizeToFit()
+        searchBar.placeholder = "Search..."
+        navigationItem.titleView = searchBar
+        if let navigationBar = navigationController?.navigationBar {
+            
+            navigationBar.barTintColor = UIColor(red: 0.7, green: 0.03, blue: 0.03, alpha: 1)
+            
+        }
         
+        // Filter results loaded
         Business.searchWithTerm(term: "Thai", completion: { (businesses: [Business]?, error: Error?) -> Void in
             
             self.businesses = businesses
+            self.searchedBusinesses = businesses
             self.tableView.reloadData()
             if let businesses = businesses {
                 for business in businesses {
@@ -41,17 +55,13 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     }
         
         func tableView(_ tableView: UITableView, numberOfRowsInSection: Int) -> Int {
-            if businesses != nil {
-                return businesses!.count
-            } else {
-                return 0
-            }
+            return searchedBusinesses?.count ?? 0
         }
         
         func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             let cell = tableView.dequeueReusableCell(withIdentifier: "BusinessCell", for: indexPath) as! BusinessCell
             // protect for nil businesses list?
-             cell.business = businesses![indexPath.row]
+             cell.business = searchedBusinesses![indexPath.row]
             
             return cell
         }
@@ -66,6 +76,28 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
          }
          }
          */
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        print("Called searchBar()")
+        if searchText.isEmpty {
+            searchedBusinesses = self.businesses
+            tableView.reloadData()
+            print("searchText  is empty.  Reloaded data")
+        } else {
+            searchedBusinesses = businesses.filter({ (dataItem: Business) -> Bool in
+                if dataItem.name!.lowercased().hasPrefix(searchText.lowercased()) {
+                    print("Search text: \(searchText) and dataItem: \(dataItem.name!) TRUE")
+                    return true
+                } else {
+                    print("Search text: \(searchText) and dataItem: \(dataItem.name!) FALSE")
+                    return false
+                }
+                
+            })
+        }
+        tableView.reloadData()
+        print("SearchBar() reloaded data at end of function")
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
