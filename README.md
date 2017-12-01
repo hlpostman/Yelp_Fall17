@@ -2,7 +2,7 @@
 
 **Yelp Mockup** is a Yelp search app using the [Yelp API](http://www.yelp.com/developers/documentation/v2/search_api).
 
-Time spent: **1.5** hours spent in total
+Time spent: **5.5** hours spent in total
 
 ## User Stories
 
@@ -10,7 +10,7 @@ The following **required** functionality is completed:
 
 - [x] Table rows for search results should be dynamic height according to the content height.
 - [x] Custom cells should have the proper Auto Layout constraints.
-- [ ] Search bar should be in the navigation bar (doesn't have to expand to show location like the real Yelp app does).
+- [x] Search bar should be in the navigation bar (doesn't have to expand to show location like the real Yelp app does).
 
 The following **optional** features are implemented:
 
@@ -19,9 +19,10 @@ The following **optional** features are implemented:
    - [ ] Implement map view of restaurant results.
 - [ ] Implement the restaurant detail page.
 
-The following **additional** features are implemented:
-
-- [ ] List anything else that you can get done to improve the app functionality!
+The following **additional** features are implemented (list anything else that you can get done to improve the app functionality!):
+- [x] User can search for type of food and restaurant name simultaneously, like in real Yelp app (e.g. searching "Pizza" in Berkeley, CA will show you the well-loved pizza place "Jupiter" even though its name does not contain the word "Pizza")
+- [x] User search experience is free of undesired results caused by filler words such as "of"
+- [x] User sees business results displayed with number labels (e.g. "1. House of Thai, 2. Gecko Gecko Thai," etc) like in real Yelp app
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 

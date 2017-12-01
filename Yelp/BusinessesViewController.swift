@@ -38,7 +38,7 @@ class BusinessesViewController: UIViewController, UISearchBarDelegate, UITableVi
         }
         
         // Filter results loaded
-        Business.searchWithTerm(term: "Thai", completion: { (businesses: [Business]?, error: Error?) -> Void in
+        Business.searchWithTerm(term: "Pizza", completion: { (businesses: [Business]?, error: Error?) -> Void in
             
             self.businesses = businesses
             self.searchedBusinesses = businesses
@@ -77,6 +77,22 @@ class BusinessesViewController: UIViewController, UISearchBarDelegate, UITableVi
          }
          */
     
+    func extractKeywords(text: String) -> [String] {
+        var keywords: [String]
+        keywords = text.components(separatedBy: " ")
+        let doNotMatch =  ["a":1, "an":1, "and":1, "at":1, "by":1, "for":1, "if":1, "in":1, "it":1, "of":1, "on":1, "or":1, "the":1, "with":1]
+        for (index, word) in keywords[1..<keywords.count].enumerated() {
+            // If one of the words is on the doNotMatch list remove it
+            print(index, word)
+            if (doNotMatch[word.lowercased()] != nil) && (index + 1 < keywords.count) {
+                keywords.remove(at: index + 1)
+                print(keywords)
+                break
+            }
+        }
+            return keywords
+    }
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         print("Called searchBar()")
         if searchText.isEmpty {
@@ -85,14 +101,16 @@ class BusinessesViewController: UIViewController, UISearchBarDelegate, UITableVi
             print("searchText  is empty.  Reloaded data")
         } else {
             searchedBusinesses = businesses.filter({ (dataItem: Business) -> Bool in
-                if dataItem.name!.lowercased().hasPrefix(searchText.lowercased()) {
-                    print("Search text: \(searchText) and dataItem: \(dataItem.name!) TRUE")
-                    return true
-                } else {
-                    print("Search text: \(searchText) and dataItem: \(dataItem.name!) FALSE")
-                    return false
+                let keySearchWords = extractKeywords(text: searchText)
+                for word in keySearchWords {
+                    // Search by business name OR business type
+                    if dataItem.name!.lowercased().contains(word.lowercased()) || dataItem.categories!.lowercased().contains(word.lowercased()){
+                        print("Search text: \(searchText) and dataItem: \(dataItem.name!) TRUE")
+                        return true
+                    }
                 }
-                
+                print("Search text: \(searchText) and dataItem: \(dataItem.name!) FALSE")
+                return false
             })
         }
         tableView.reloadData()
