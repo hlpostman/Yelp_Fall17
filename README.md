@@ -1,8 +1,9 @@
+
 # Project 3 - *Yelp Mockup*
 
 **Yelp Mockup** is a Yelp search app using the [Yelp API](http://www.yelp.com/developers/documentation/v2/search_api).
 
-Time spent: **5.5** hours spent in total
+Time spent: **10.5** hours spent in total
 
 ## User Stories
 
@@ -17,24 +18,25 @@ The following **optional** features are implemented:
 - [ ] Search results page
    - [ ] Infinite scroll for restaurant results.
    - [ ] Implement map view of restaurant results.
-- [ ] Implement the restaurant detail page.
+- [x] Implement the restaurant detail page.
 
 The following **additional** features are implemented (list anything else that you can get done to improve the app functionality!):
 - [x] User can search for type of food and restaurant name simultaneously, like in real Yelp app (e.g. searching "Pizza" in Berkeley, CA will show you the well-loved pizza place "Jupiter" even though its name does not contain the word "Pizza")
 - [x] User search experience is free of undesired results caused by filler words such as "of"
 - [x] Customize navigation bar in detail view to be translucent as in real Yelp app detail view
+- [x] Implement map view of the restaurant on the details page
 - [ ] User sees business results displayed with number labels (e.g. "1. House of Thai, 2. Gecko Gecko Thai," etc) like in real Yelp app
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1. 
-2. 
+1. MapKit uses
+2. Custom transitions (yelp has an interesting one between list and map view)
 
 ## Video Walkthrough 
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://github.com/hlpostman/Yelp_Fall17/blob/master/YelpFall17_VideoWalkthrough.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
@@ -44,7 +46,7 @@ Describe any challenges encountered while building the app.
 
 ## License
 
-    Copyright [yyyy] [name of copyright owner]
+    Copyright 2017 H.L. Postman (where it does not violate the 2014 copyright of Timothy Lee)
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.

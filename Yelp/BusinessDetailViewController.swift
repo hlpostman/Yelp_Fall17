@@ -18,6 +18,9 @@ class BusinessDetailViewController: UIViewController {
     @IBOutlet weak var ratingImageView: UIImageView!
     @IBOutlet weak var reviewsCountLabel: UILabel!
     @IBOutlet weak var categoriesLabel: UILabel!
+
+    @IBOutlet weak var businessMapView: MKMapView!
+    var coordinate: CLLocationCoordinate2D?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,9 +41,20 @@ class BusinessDetailViewController: UIViewController {
             reviewsCountLabel.text = "\(business.reviewCount!) Reviews"
             categoriesLabel.text = business.categories!
             print("COORD LONG IS 💗 \(String(describing: business.longitude)) and COORD LAT is \(String(describing: business.latitude))")
+            coordinate = CLLocationCoordinate2D(latitude: business.latitude!, longitude: business.longitude!)
+            addAnnotationAtCoordinate(coordinate: coordinate!)
+            let mapSpan = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+            businessMapView.region = MKCoordinateRegion(center: coordinate!, span: mapSpan)
         }
     }
-
+    
+    func addAnnotationAtCoordinate(coordinate: CLLocationCoordinate2D) {
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = coordinate
+        annotation.title = business?.name!
+        businessMapView.addAnnotation(annotation)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
