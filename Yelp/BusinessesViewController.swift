@@ -8,17 +8,17 @@
 
 import UIKit
 
-class BusinessesViewController: UIViewController, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource {
+class BusinessesViewController: UIViewController, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate {
     
     @IBOutlet weak var tableView: UITableView!
+    var isMoreDataLoading = false
     var businesses: [Business]!
     var searchedBusinesses: [Business]?
+    
     let searchBar = UISearchBar()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        self.title = "Yelp"
         
         // Tableview
         tableView.delegate = self
@@ -54,28 +54,66 @@ class BusinessesViewController: UIViewController, UISearchBarDelegate, UITableVi
         )
     }
         
-        func tableView(_ tableView: UITableView, numberOfRowsInSection: Int) -> Int {
-            return searchedBusinesses?.count ?? 0
-        }
-        
-        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "BusinessCell", for: indexPath) as! BusinessCell
-            // protect for nil businesses list?
-             cell.business = searchedBusinesses![indexPath.row]
+    func tableView(_ tableView: UITableView, numberOfRowsInSection: Int) -> Int {
+        return searchedBusinesses?.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "BusinessCell", for: indexPath) as! BusinessCell
+        // protect for nil businesses list?
+         cell.business = searchedBusinesses![indexPath.row]
+        return cell
+    }
+    
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        print("Entered scorllViewDidScroll")
+        if !isMoreDataLoading {
+            // Calculate the position of one screen length before the bottom of results
+            let scrollViewContentHeight = tableView.contentSize.height
+            let scrollViewOffsetThreshold = scrollViewContentHeight - tableView.bounds.size.height
             
-            return cell
+            // When the user has scrolled past the threshold, start refreshing
+            if scrollView.contentOffset.y > scrollViewOffsetThreshold && tableView.isDragging {
+                print("scrollview.contentOffset.y > scrollViewOffsetThreshold && tableView.isDraggin")
+                isMoreDataLoading = true
+//                loadMoreData()
+                Business.searchWithTerm(term: "Pizza", completion: { (businesses: [Business]?, error: Error?) -> Void in
+                    
+                    self.businesses = businesses
+                    self.searchedBusinesses = businesses
+                    self.tableView.reloadData()
+                    if let businesses = businesses {
+                        for business in businesses {
+                            print(business.name!)
+                            print(business.address!)
+                        }
+                    }
+                    
+                }
+                )
+                
+            }
+            
         }
-        
-        /* Example of Yelp search with more search options specified
-         Business.searchWithTerm("Restaurants", sort: .distance, categories: ["asianfusion", "burgers"], deals: true) { (businesses: [Business]!, error: Error!) -> Void in
-         self.businesses = businesses
-         
-         for business in businesses {
-         print(business.name!)
-         print(business.address!)
-         }
-         }
-         */
+    }
+    
+    /* Example of Yelp search with more search options specified
+     Business.searchWithTerm("Restaurants", sort: .distance, categories: ["asianfusion", "burgers"], deals: true) { (businesses: [Business]!, error: Error!) -> Void in
+     self.businesses = businesses
+     
+     for business in businesses {
+     print(business.name!)
+     print(business.address!)
+     }
+     }
+     */
+
+//    func loadMoreData() {
+//        // Configure session so that completion handler is handled on Main UI thread
+//        let session = URLSession(configuration: .default, delegate: nil, delegateQueue: .main)
+//        let task = session.data
+//    }
     
     func extractKeywords(text: String) -> [String] {
         var keywords: [String]
