@@ -131,11 +131,30 @@
                     <navigationItem key="navigationItem" id="Jvy-Gi-7DK"/>
                     <connections>
                         <outlet property="tableView" destination="bbH-pY-dWN" id="g6e-2s-ycR"/>
+                        <segue destination="DcC-U2-Uco" kind="show" id="Hfc-sb-gJv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fgb-4b-F1b" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2127.1999999999998" y="357.57121439280365"/>
+        </scene>
+        <!--Business Detail View Controller-->
+        <scene sceneID="A7r-Zp-cHU">
+            <objects>
+                <viewController id="DcC-U2-Uco" customClass="BusinessDetailViewController" customModule="Yelp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="fu6-eA-PWb"/>
+                        <viewControllerLayoutGuide type="bottom" id="Qbb-hu-FeK"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="S7X-QZ-jlh">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ai9-qD-WS1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2785" y="358"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="enu-Fq-u50">
