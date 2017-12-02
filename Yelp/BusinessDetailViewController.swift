@@ -14,6 +14,13 @@ class BusinessDetailViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        if let navigationBar = navigationController?.navigationBar {
+            print("setting navigation bar customization in detail view")
+            navigationBar.setBackgroundImage(UIImage(), for: .default)
+            navigationBar.shadowImage = UIImage()
+            navigationBar.backgroundColor = .clear
+            navigationBar.isTranslucent = true
+        }
     }
 
     override func didReceiveMemoryWarning() {

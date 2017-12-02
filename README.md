@@ -22,7 +22,8 @@ The following **optional** features are implemented:
 The following **additional** features are implemented (list anything else that you can get done to improve the app functionality!):
 - [x] User can search for type of food and restaurant name simultaneously, like in real Yelp app (e.g. searching "Pizza" in Berkeley, CA will show you the well-loved pizza place "Jupiter" even though its name does not contain the word "Pizza")
 - [x] User search experience is free of undesired results caused by filler words such as "of"
-- [x] User sees business results displayed with number labels (e.g. "1. House of Thai, 2. Gecko Gecko Thai," etc) like in real Yelp app
+- [x] Customize navigation bar in detail view to be translucent as in real Yelp app detail view
+- [ ] User sees business results displayed with number labels (e.g. "1. House of Thai, 2. Gecko Gecko Thai," etc) like in real Yelp app
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 

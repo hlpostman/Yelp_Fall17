@@ -61,25 +61,34 @@ class BusinessesViewController: UIViewController, UISearchBarDelegate, UITableVi
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "BusinessCell", for: indexPath) as! BusinessCell
         // protect for nil businesses list?
-         cell.business = searchedBusinesses![indexPath.row]
-        return cell
+        if searchedBusinesses != nil {
+            print("returning searched business")
+            cell.business = searchedBusinesses![indexPath.row]
+        } else {
+            print("searched businesses was nil")
+            cell.business = businesses[indexPath.row]
+        }
+            return cell
     }
     
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        print("Entered scorllViewDidScroll")
+        print("Entered scrollViewDidScroll")
         if !isMoreDataLoading {
             // Calculate the position of one screen length before the bottom of results
             let scrollViewContentHeight = tableView.contentSize.height
             let scrollViewOffsetThreshold = scrollViewContentHeight - tableView.bounds.size.height
             
             // When the user has scrolled past the threshold, start refreshing
+//            print(sc)
+//            if scrollView.contentOffset.y > scrollViewOffsetThreshold && tableView.isDragging {
             if scrollView.contentOffset.y > scrollViewOffsetThreshold && tableView.isDragging {
                 print("scrollview.contentOffset.y > scrollViewOffsetThreshold && tableView.isDraggin")
                 isMoreDataLoading = true
 //                loadMoreData()
                 Business.searchWithTerm(term: "Pizza", completion: { (businesses: [Business]?, error: Error?) -> Void in
                     
+                    self.isMoreDataLoading = false
                     self.businesses = businesses
                     self.searchedBusinesses = businesses
                     self.tableView.reloadData()
