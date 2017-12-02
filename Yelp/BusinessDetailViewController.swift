@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import CoreLocation
+import MapKit
 
 class BusinessDetailViewController: UIViewController {
 
@@ -16,7 +18,6 @@ class BusinessDetailViewController: UIViewController {
     @IBOutlet weak var ratingImageView: UIImageView!
     @IBOutlet weak var reviewsCountLabel: UILabel!
     @IBOutlet weak var categoriesLabel: UILabel!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +32,12 @@ class BusinessDetailViewController: UIViewController {
         }
         
         if let business = business {
+            businessImageView.setImageWith(business.imageURL!)
             nameLabel.text = business.name!
+            ratingImageView.setImageWith(business.ratingImageURL!)
+            reviewsCountLabel.text = "\(business.reviewCount!) Reviews"
+            categoriesLabel.text = business.categories!
+            print("COORD LONG IS 💗 \(String(describing: business.longitude)) and COORD LAT is \(String(describing: business.latitude))")
         }
     }
 

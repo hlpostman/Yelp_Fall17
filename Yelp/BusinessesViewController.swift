@@ -173,7 +173,7 @@ class BusinessesViewController: UIViewController, UISearchBarDelegate, UITableVi
      // MARK: - Navigation
      
      // In a storyboard-based application, you will often want to do a little preparation before navigation
-    func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let vc = segue.destination as! BusinessDetailViewController
         let cell = sender as! BusinessCell
         let indexPath = tableView.indexPath(for: cell)
