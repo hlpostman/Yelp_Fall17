@@ -10,16 +10,28 @@ import UIKit
 
 class BusinessDetailViewController: UIViewController {
 
+    var business: Business?
+    @IBOutlet weak var businessImageView: UIImageView!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var ratingImageView: UIImageView!
+    @IBOutlet weak var reviewsCountLabel: UILabel!
+    @IBOutlet weak var categoriesLabel: UILabel!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        // Translucent navigation bar
         if let navigationBar = navigationController?.navigationBar {
             print("setting navigation bar customization in detail view")
             navigationBar.setBackgroundImage(UIImage(), for: .default)
             navigationBar.shadowImage = UIImage()
             navigationBar.backgroundColor = .clear
             navigationBar.isTranslucent = true
+        }
+        
+        if let business = business {
+            nameLabel.text = business.name!
         }
     }
 

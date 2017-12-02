@@ -233,6 +233,13 @@
                             <constraint firstItem="aLn-sb-jCg" firstAttribute="leading" secondItem="S7X-QZ-jlh" secondAttribute="leading" id="vvJ-TF-rvg"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="businessImageView" destination="aLn-sb-jCg" id="X24-F7-ehd"/>
+                        <outlet property="categoriesLabel" destination="pc0-IF-4QK" id="3XE-ad-qcS"/>
+                        <outlet property="nameLabel" destination="D48-UK-6x5" id="LaQ-3L-Pgg"/>
+                        <outlet property="ratingImageView" destination="4wp-ot-TTn" id="VZ0-18-Uud"/>
+                        <outlet property="reviewsCountLabel" destination="aSQ-Rm-Tps" id="6Gg-KE-mn2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ai9-qD-WS1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

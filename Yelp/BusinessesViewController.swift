@@ -169,14 +169,18 @@ class BusinessesViewController: UIViewController, UISearchBarDelegate, UITableVi
         // Dispose of any resources that can be recreated.
     }
     
-    /*
+    
      // MARK: - Navigation
      
      // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
+    func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let vc = segue.destination as! BusinessDetailViewController
+        let cell = sender as! BusinessCell
+        let indexPath = tableView.indexPath(for: cell)
+        
+        let business = searchedBusinesses![indexPath!.row]
+        vc.business = business
      }
-     */
+ 
     
 }
