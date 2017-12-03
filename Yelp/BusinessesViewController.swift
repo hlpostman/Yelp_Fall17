@@ -7,10 +7,16 @@
 //
 
 import UIKit
+import CoreLocation
+import MapKit
 
 class BusinessesViewController: UIViewController, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate {
     
+    @IBOutlet weak var mapView: MKMapView!
+    
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var changeBetweenMapAndListViewsButton: UIBarButtonItem!
+    var isMapView = false
     var isMoreDataLoading = false
     var businesses: [Business]!
     var searchedBusinesses: [Business]?
@@ -36,6 +42,12 @@ class BusinessesViewController: UIViewController, UISearchBarDelegate, UITableVi
             navigationBar.barTintColor = UIColor(red: 0.7, green: 0.03, blue: 0.03, alpha: 1)
             
         }
+
+        // Search bar and map/list button vertical alignment
+        //  To do (nav bar item alignment - elminated solutions commented out below, delete comments on successful implementation)
+        changeBetweenMapAndListViewsButton.tintColor = .white
+//        changeBetweenMapAndListViewsButton.setTitlePositionAdjustment(.init(horizontal: 10, vertical: 20), for: .default)
+//        changeBetweenMapAndListViewsButton.setBackgroundVerticalPositionAdjustment(100, for: .default)
         
         // Filter results loaded
         Business.searchWithTerm(term: "Pizza", completion: { (businesses: [Business]?, error: Error?) -> Void in
@@ -71,6 +83,19 @@ class BusinessesViewController: UIViewController, UISearchBarDelegate, UITableVi
             return cell
     }
     
+    
+    
+    @IBAction func onChangeBetweenMapAndListView(_ sender: Any) {
+        
+        let fromView = isMapView ? mapView : tableView
+        let toView = isMapView ? tableView : mapView
+        let transition: UIViewAnimationOptions = isMapView ? .transitionFlipFromLeft : .transitionFlipFromRight
+        
+        UIView.transition(from: fromView, to: toView, duration: 0.7, options:[.showHideTransitionViews, transition])
+        isMapView = !isMapView
+        changeBetweenMapAndListViewsButton.title = isMapView ? "List" : "Map"
+
+    }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         print("Entered scrollViewDidScroll")
