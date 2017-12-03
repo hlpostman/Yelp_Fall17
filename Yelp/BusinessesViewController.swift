@@ -46,8 +46,8 @@ class BusinessesViewController: UIViewController, UISearchBarDelegate, UITableVi
         // Search bar and map/list button vertical alignment
         //  To do (nav bar item alignment - elminated solutions commented out below, delete comments on successful implementation)
         changeBetweenMapAndListViewsButton.tintColor = .white
-//        changeBetweenMapAndListViewsButton.setTitlePositionAdjustment(.init(horizontal: 10, vertical: 20), for: .default)
-//        changeBetweenMapAndListViewsButton.setBackgroundVerticalPositionAdjustment(100, for: .default)
+        //  changeBetweenMapAndListViewsButton.setTitlePositionAdjustment(.init(horizontal: 10, vertical: 20), for: .default)
+        // changeBetweenMapAndListViewsButton.setBackgroundVerticalPositionAdjustment(100, for: .default)
         
         // Filter results loaded
         Business.searchWithTerm(term: "Pizza", completion: { (businesses: [Business]?, error: Error?) -> Void in
@@ -64,6 +64,7 @@ class BusinessesViewController: UIViewController, UISearchBarDelegate, UITableVi
             
             }
         )
+
     }
         
     func tableView(_ tableView: UITableView, numberOfRowsInSection: Int) -> Int {
@@ -83,9 +84,21 @@ class BusinessesViewController: UIViewController, UISearchBarDelegate, UITableVi
             return cell
     }
     
-    
+    func addAnnotationAtCoordinate(business: Business?) {
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = CLLocationCoordinate2D(latitude: business!.latitude!, longitude: business!.longitude!)
+        annotation.title = business?.name!
+        mapView.addAnnotation(annotation)
+    }
+
     
     @IBAction func onChangeBetweenMapAndListView(_ sender: Any) {
+        
+        if !isMapView {
+            for business in searchedBusinesses! {
+                addAnnotationAtCoordinate(business: business)
+            }
+        }
         
         let fromView = isMapView ? mapView : tableView
         let toView = isMapView ? tableView : mapView

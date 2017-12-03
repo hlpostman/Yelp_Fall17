@@ -46,6 +46,7 @@ class BusinessDetailViewController: UIViewController {
             let mapSpan = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
             businessMapView.region = MKCoordinateRegion(center: coordinate!, span: mapSpan)
         }
+        
     }
     
     func addAnnotationAtCoordinate(coordinate: CLLocationCoordinate2D) {
